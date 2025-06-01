@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webpage</title>
-    <!-- Optional: Add your CSS here -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        header, main, footer {
-            max-width: 800px;
-            margin: auto;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 2em;
-        }
-        footer {
-            text-align: center;
-            margin-top: 2em;
-            font-size: 0.9em;
-            color: #555;
-        }
+      /* make everything black */
+      html,
+      body,
+      nav,
+      main,
+      button {
+        background-color: #000 !important;
+        color: #000 !important;
+      }
+      /* ensure hidden text is selectable */
+      span.hidden-text {
+        user-select: text;
+      }
     </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Site</h1>
-        <nav>
-            <a href="#">Home</a> |
-            <a href="#">About</a> |
-            <a href="#">Services</a> |
-            <a href="#">Contact</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Introduction</h2>
-            <p>This is a simple HTML template to kickstart your webpage. Feel free to customize it as needed.</p>
-        </section>
-        <!-- Add more sections as necessary -->
-    </main>
-    <footer>
-        &copy; 2023 Your Name. All rights reserved.
-    </footer>
-</body>
+    <title>CapsHere</title>
+  </head>
+  <body>
+    <!-- randomly placed hidden snippets -->
+    <span class="hidden-text absolute">Secret One</span>
+    <span class="hidden-text absolute">Another hidden line</span>
+    <span class="hidden-text absolute">You found me!</span>
+    <span class="hidden-text absolute">Almost there…</span>
+
+    <div
+      class="w-full h-screen flex items-center justify-center flex-col gap-4"
+    >
+      <h1 class="text-7xl font-bold">CapsHere</h1>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const spans = document.querySelectorAll(".hidden-text");
+        spans.forEach((el) => {
+          // compute random x/y within viewport bounds
+          const x = Math.random() * (window.innerWidth - el.offsetWidth);
+          const y = Math.random() * (window.innerHeight - el.offsetHeight);
+          el.style.left = `${x}px`;
+          el.style.top = `${y}px`;
+        });
+      });
+    </script>
+  </body>
 </html>
