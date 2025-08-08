@@ -13,7 +13,7 @@
       nav,
       main,
       button {
-        background-color: #000 !important;
+        background-color: #ffffff !important;
         color: #000 !important;
       }
       /* ensure hidden text is selectable */
@@ -24,27 +24,53 @@
     <title>CapsHere</title>
   </head>
   <body>
-    <!-- randomly placed hidden snippets -->
-    <span class="hidden-text absolute">Secret One</span>
-    <span class="hidden-text absolute">Another hidden line</span>
-    <span class="hidden-text absolute">You found me!</span>
-    <span class="hidden-text absolute">Almost there…</span>
-
     <div
       class="w-full h-screen flex items-center justify-center flex-col gap-4"
     >
-      <h1 class="text-7xl font-bold">CapsHere</h1>
+      <h1 class="text-4xl font-black">
+        nothings to see here. <span class="ml-14">for now.</span>
+      </h1>
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const spans = document.querySelectorAll(".hidden-text");
-        spans.forEach((el) => {
-          // compute random x/y within viewport bounds
-          const x = Math.random() * (window.innerWidth - el.offsetWidth);
-          const y = Math.random() * (window.innerHeight - el.offsetHeight);
-          el.style.left = `${x}px`;
-          el.style.top = `${y}px`;
+      // Secret snippets
+      const secrets = [];
+
+      // Store random spots
+      const spots = [];
+
+      // Size of the reveal area (in px)
+      const areaSize = 80;
+
+      // Create and store 4 random spots
+      for (let i = 0; i < secrets.length; i++) {
+        const x = Math.random() * (window.innerWidth - areaSize);
+        const y = Math.random() * (window.innerHeight - areaSize);
+        spots.push({ x, y, revealed: false });
+      }
+
+      // Listen for mousemove
+      document.addEventListener("mousemove", (e) => {
+        spots.forEach((spot, idx) => {
+          if (!spot.revealed) {
+            if (
+              e.clientX >= spot.x &&
+              e.clientX <= spot.x + areaSize &&
+              e.clientY >= spot.y &&
+              e.clientY <= spot.y + areaSize
+            ) {
+              // Reveal the secret at this spot
+              const span = document.createElement("span");
+              span.className = "hidden-text absolute";
+              span.style.left = `${spot.x}px`;
+              span.style.top = `${spot.y}px`;
+              span.style.position = "absolute";
+              span.style.color = "#000";
+              span.textContent = secrets[idx];
+              document.body.appendChild(span);
+              spot.revealed = true;
+            }
+          }
         });
       });
     </script>
